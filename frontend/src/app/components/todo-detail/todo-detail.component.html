@@ -1,0 +1,12 @@
+<a [routerLink]="['/todo-list/']" type="button" class="btn btn-dark">Back</a>
+<hr class="my-4">
+<div *ngIf="dataLoaded">
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h3 class="card-title">{{ todo.subject }} <span class="badge badge-secondary" style="font-size: 8px;">{{ todo.priority }}</span>
+      </h3>
+      <h6>Deadline: {{ todo.deadline }}</h6>
+      <p class="card-text">{{ todo.text }}</p>
+    </div>
+  </div>
+</div>
