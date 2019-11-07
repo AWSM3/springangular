@@ -13,8 +13,7 @@
   <groupId>com.lanit.springangular</groupId>
   <artifactId>springangular</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>war</packaging>
-
+  <packaging>${mvn.packaging}</packaging>
   <name>ToDo List</name>
   <url>http://127.0.0.1:8080</url>
 
@@ -23,10 +22,35 @@
     <maven.compiler.source>1.10</maven.compiler.source>
     <maven.compiler.target>1.10</maven.compiler.target>
     <start-class>com.lanit.springangular.AngularApplication</start-class>
+    <application.name>springangular</application.name>
 
     <angular.project.location>frontend</angular.project.location>
     <angular.project.nodeinstallation>node_installation</angular.project.nodeinstallation>
   </properties>
+
+  <profiles>
+    <profile>
+      <id>production</id>
+      <properties>
+        <application.global.loglevel>INFO</application.global.loglevel>
+        <application.spring.activeProfile>production</application.spring.activeProfile>
+        <mvn.packaging>war</mvn.packaging>
+        <frontend.build.command>buildProduction</frontend.build.command>
+      </properties>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+    </profile>
+    <profile>
+      <id>development</id>
+      <properties>
+        <application.global.loglevel>DEBUG</application.global.loglevel>
+        <application.spring.activeProfile>development</application.spring.activeProfile>
+        <mvn.packaging>jar</mvn.packaging>
+        <frontend.build.command>build</frontend.build.command>
+      </properties>
+    </profile>
+  </profiles>
 
   <dependencies>
     <dependency>
@@ -52,12 +76,12 @@
   </dependencies>
 
   <build>
+    <finalName>${application.name}</finalName>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
-
 
       <plugin>
         <groupId>com.github.eirslett</groupId>
@@ -98,7 +122,7 @@
               <goal>npm</goal>
             </goals>
             <configuration>
-              <arguments>run build</arguments>
+              <arguments>run ${frontend.build.command}</arguments>
             </configuration>
           </execution>
         </executions>
@@ -119,12 +143,12 @@
             </goals>
             <configuration>
               <overwrite>true</overwrite>
-              <!-- This folder is the folder where your angular files
+              <!-- This folder is the folder wh ere your angular files
               will be copied to. It must match the resulting war-file name.
               So if you have customized the name of war-file for ex. as "app.war"
               then below value should be ${project.build.directory}/app/
               Value given below is as per default war-file name -->
-              <outputDirectory>${project.build.directory}/${project.artifactId}-${project.version}/</outputDirectory>
+              <outputDirectory>${project.build.directory}/${application.name}/</outputDirectory>
               <resources>
                 <resource>
                   <directory>${project.basedir}/${angular.project.location}/dist/frontend</directory>

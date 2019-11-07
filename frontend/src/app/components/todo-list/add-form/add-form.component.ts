@@ -12,7 +12,6 @@ import {TodoListService} from "../todo-list.service";
 })
 export class AddFormComponent implements OnInit {
   readonly priority = ['LOW', 'NORMAL', 'HIGH'];
-  readonly createUrl = "/rest/item/save";
   todoForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private api: ApiService, private listService: TodoListService) {

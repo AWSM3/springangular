@@ -61,6 +61,14 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "development": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ]
             }
           }
         },
@@ -72,6 +80,9 @@
           "configurations": {
             "production": {
               "browserTarget": "frontend:build:production"
+            },
+            "development": {
+              "browserTarget": "frontend:build:development"
             }
           }
         },
@@ -120,6 +131,9 @@
           "configurations": {
             "production": {
               "devServerTarget": "frontend:serve:production"
+            },
+            "development": {
+              "devServerTarget": "frontend:serve:development"
             }
           }
         }

@@ -16,7 +16,7 @@ export class TodoListComponent implements OnInit {
     this.service.change.subscribe(() => this.loadTodos());
   }
 
-  loadTodos() {
+  private loadTodos() {
     this.api.getTodos()
       .subscribe(response => {
         console.log(response);
@@ -24,5 +24,9 @@ export class TodoListComponent implements OnInit {
       }, err => {
         console.log(err);
       });
+  }
+
+  public getItems() {
+    return this.items;
   }
 }
