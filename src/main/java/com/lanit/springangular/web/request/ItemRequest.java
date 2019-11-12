@@ -1,9 +1,7 @@
 package com.lanit.springangular.web.request;
 
 import com.lanit.springangular.enums.Priority;
-import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public class ItemRequest {
