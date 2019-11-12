@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {ApiService} from "../../service/api.service";
 import {ToDo} from "../../dto/ToDo";
+import {TodoService} from "../../service/api/todo.service";
 
 @Component({
   selector: 'app-todo-detail',
@@ -12,10 +12,10 @@ export class TodoDetailComponent implements OnInit {
   todo: ToDo;
   dataLoaded: boolean = false;
 
-  constructor(private route: ActivatedRoute, private api: ApiService) {}
+  constructor(private route: ActivatedRoute, private todoService: TodoService) {}
 
   ngOnInit() {
-    this.api.getTodo(this.route.snapshot.paramMap.get("id")).subscribe(response => {
+    this.todoService.getTodo(this.route.snapshot.paramMap.get("id")).subscribe(response => {
       this.todo = <ToDo> response;
       this.dataLoaded = true;
     });

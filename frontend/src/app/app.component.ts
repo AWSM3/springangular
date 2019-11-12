@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {AuthManager} from "./service/auth-manager";
 
 // определение компонента
 @Component({
@@ -7,6 +8,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.sass']
 })
 
-export class AppComponent {
-  title = 'frontend';
+export class AppComponent implements OnInit {
+  constructor(private authManager: AuthManager) {}
+
+  ngOnInit(): void {
+    this.authManager.authFromSession();
+  }
 }

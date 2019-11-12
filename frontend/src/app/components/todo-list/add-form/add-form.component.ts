@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, NgForm} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
-import {ApiService} from "../../../service/api.service";
 import {Router} from "@angular/router";
 import {TodoListService} from "../todo-list.service";
+import {TodoService} from "../../../service/api/todo.service";
 
 @Component({
   selector: 'app-add-form',
@@ -14,7 +14,7 @@ export class AddFormComponent implements OnInit {
   readonly priority = ['LOW', 'NORMAL', 'HIGH'];
   todoForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private api: ApiService, private listService: TodoListService) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private todoService: TodoService, private listService: TodoListService) {
     this.createForm();
   }
 
@@ -28,7 +28,7 @@ export class AddFormComponent implements OnInit {
   }
 
   createTodo() {
-    this.api.saveTodo(this.todoForm).subscribe(response => {
+    this.todoService.saveTodo(this.todoForm).subscribe(response => {
       console.log("saving todo");
       console.log(response);
       this.listService.update();

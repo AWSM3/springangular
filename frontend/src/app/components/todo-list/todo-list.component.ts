@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {ApiService} from "../../service/api.service";
+import {Component, EventEmitter, OnInit} from '@angular/core';
 import {TodoListService} from "./todo-list.service";
+import {TodoService} from "../../service/api/todo.service";
+import {AuthManager} from "../../service/auth-manager";
+import {EventsBus} from "../../service/events.bus";
 
 @Component({
   selector: 'app-todo-list',
@@ -9,24 +11,38 @@ import {TodoListService} from "./todo-list.service";
 })
 export class TodoListComponent implements OnInit {
   private items;
-  constructor(private api: ApiService, private service: TodoListService) {}
+
+  constructor(
+    private todoService: TodoService,
+    private service: TodoListService,
+    private authManager: AuthManager,
+    private eventsBus: EventsBus
+  ) {}
 
   ngOnInit() {
-    this.loadTodos();
+    console.log(this.authManager.hasUserData());
+    if (this.authManager.hasUserData()) {
+      this.loadTodos();
+    }
+    this.eventsBus.forceDataUpdate.subscribe(() => this.loadTodos());
     this.service.change.subscribe(() => this.loadTodos());
   }
 
   private loadTodos() {
-    this.api.getTodos()
+    this.todoService.getTodos()
       .subscribe(response => {
-        console.log(response);
+        console.log("success loading todos", response);
         this.items = response;
       }, err => {
-        console.log(err);
+        console.log("failed loading todos", err);
       });
   }
 
-  public getItems() {
+  public getItems(): Array<object> {
     return this.items;
+  }
+
+  public hasAuth(): boolean {
+    return this.authManager.hasUserData();
   }
 }

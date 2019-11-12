@@ -1,0 +1,16 @@
+<div class="auth-modal">
+  <div class="auth-modal-body col-md-4 offset-md-4">
+    <form [formGroup]="authForm" (submit)="auth()">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" class="form-control" formControlName="username">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" class="form-control" formControlName="password">
+      </div>
+      <button type="submit" class="btn btn-primary">Authenticate</button>
+    </form>
+  </div>
+</div>
+<div class="auth-modal-background"></div>
