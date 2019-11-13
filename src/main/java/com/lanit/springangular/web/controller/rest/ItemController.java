@@ -36,7 +36,7 @@ public class ItemController {
         Item item = itemsRepository.findById(UUID.fromString(id)).get();
 
         return ResponseEntity.ok()
-                .body(new ItemDto(item.getid(), item.getSubject(), item.getText(), item.getPriority(), item.getDeadline()));
+                .body(new ItemDto(item.getId(), item.getSubject(), item.getText(), item.getPriority(), item.getDeadline(), item.getUser()));
     }
 
     @PostMapping("/save")

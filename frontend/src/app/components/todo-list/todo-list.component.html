@@ -16,16 +16,17 @@
         <th>Content</th>
         <th>Priority</th>
         <th>Deadline</th>
+        <th style="text-align: right"><sub>actions</sub></th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let item of getItems(); let i = index;">
-        <td width="20">{{ item.id }}</td>
+        <td>{{ item.id }}</td>
         <td>{{ item.subject }}</td>
         <td>{{ item.text }}</td>
         <td>{{ item.priority }}</td>
         <td>{{ item.deadline }}</td>
-        <td width="250">
+        <td width="250" style="text-align: right;">
           <a [routerLink]="['/todo/', item.id]">
             <button type="button" class="btn btn-primary">Open</button>
           </a>
